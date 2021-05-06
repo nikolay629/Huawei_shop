@@ -1,0 +1,40 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        .responsive {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container jumbotron">
+        <div class="row" style="text-align: center">
+            <h2>{{ article_trans.name }} photos:</h2>
+        </div>
+        <hr>
+        <div class="row">
+            {% for photo in photos %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body card-background">
+                            <a href="{{ path('article_photo_delete', {articleId: photo.article.id ,id: photo.id}) }}"
+                               class="btn btn-danger" onclick="return confirm('Are you sure?')">
+                                <i class="bi bi-trash-fill"></i>
+                            </a>
+                            <img class="responsive" src="{{ asset('uploads/article/') ~ photo.file }}">
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <hr>
+        <input type="hidden" class="form-control" name="articleId" value="{{ article_trans.article.Id }}">
+        {{form_start(form)}}
+            {{ form_row(form.file) }}
+            {{ form_row(form.submit) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

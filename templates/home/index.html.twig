@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta charset="utf-8" />
+    <title>NORTH OnePage HTML Theme</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <!--Favicon -->
+	<link rel="icon" type="image/png" href="images/favicon.png" />
+		
+	<!-- CSS Files -->
+
+	<link rel="stylesheet" href="css/reset.css" />
+	<link rel="stylesheet" href="css/animate.min.css" />
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/font-awesome.min.css" />
+	<link rel="stylesheet" href="css/owl.carousel.css" />
+	<link rel="stylesheet" href="css/socials.css" />
+	<link rel="stylesheet" href="css/player/YTPlayer.css" />
+	<link rel="stylesheet" href="css/magnific-popup.css" />
+	<link rel="stylesheet" href="css/prettyPhoto.css" />
+	<link rel="stylesheet" href="css/revslider.css" />
+	<link rel="stylesheet" href="css/settings.css" />
+	<!-- Page Styles -->
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/responsive.css" />
+	<!-- End Page Styles -->
+
+	<!-- Page Layout Color, night or dark -->
+	<link id="changeable_tone" rel="stylesheet" href="css/dark.css" />
+	<!-- End Page Layout Color -->
+
+	<!-- Page Elements Color -->
+	<link id="changeable_color" rel="stylesheet" href="css/colors/red.css" />
+	<!-- End Page Elements Color -->
+
+	<!-- Theme Panel -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="theme_panel/theme_panel.css" />
+	<!-- End Theme Panel -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+	<!-- End CSS Files #0e90d2 -->
+
+	<style>
+		.modal-style{
+			display: none;
+			position: fixed;
+			z-index: 1;
+			padding-top: 100px;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgb(0,0,0);
+			background-color: rgba(0,0,0,0.4);
+		}
+		.modal-content {
+			background-color: #005c99;
+			margin: auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 30%;
+		}
+		.cart-popup {
+			display: none;
+			background-color: rgba(34,34,34, 0.95);
+			width: 300px;
+		}
+		.responsive {
+			width: 100%;
+			height: auto;
+		}
+		.form{
+			background-color: #0f3e68;
+			color: white;
+			width:100%;
+			height: auto;
+			padding:15px 15px 12px;
+			font-size:18px;
+			margin-bottom:18px;
+			letter-spacing: 0.5px;
+			border: none;
+		}
+		.textarea {
+			height: 201px;
+			max-width: 100%;
+			max-height: 201px;
+		}
+		.tab-text, label{
+			color: white;
+		}
+		.contact-soft{
+			width:90%;
+			max-width: 770px;
+			padding:52px;
+			background-color: #0f3e68;
+			color:#e7e7e7;
+			margin:0 auto;
+		}
+
+	</style>
+
+	{% block stylesheets %}
+	{% endblock %}
+
+</head>
+
+<body class="dark-layout parallax">
+
+
+	<!-- Page Loader -->
+	<section id="pageloader">
+		<div class="outter colored-border">
+			<div class="mid colored-border"></div>
+		</div>
+	</section>
+
+
+
+	<!-- Navigation -->
+	<nav id="navigation-sticky" class="first-nav dark-nav">
+		<!-- Navigation Inner -->
+		<div class="nav-inner">
+			<div class="logo">
+				<!-- Navigation Logo Link -->
+				<a href="#home" class="scroll">
+					<!-- Your Logo -->
+					<img src="{{ asset('uploads/logo.png') | imagine_filter('logo') }}" class="site_logo" alt="North Logo"/>
+				</a>
+			</div>
+			<!-- Mobile Menu Button -->
+			<a class="mobile-nav-button colored"><i class="fa fa-bars"></i></a>
+			<!-- Navigation Menu -->
+			<div class="nav-menu clearfix semibold">
+				<ul class="nav uppercase oswald">
+					<li><a href="#home" class="scroll">{{ homeTitle }}</a></li>
+					<li class="dropdown-toggle nav-toggle" ><a href="#review" class="scroll">{{ reviewTitle }}<b data-toggle="dropdown"></b></a>
+						<!-- DropDown Menu -->
+						<ul class="dropdown-menu uppercase gray-border clearfix">
+							<li><a href="#design" class="scroll">{{ designTitle }}</a></li>
+							<li><a href="#photography" class="scroll">{{ photographyTitle }}</a></li>
+							<li><a href="#videography" class="scroll">{{ videographyTitle }}</a></li>
+							<li><a href="#battery" class="scroll">{{ batteryTitle }}</a></li>
+						</ul>
+						<!-- End DropDown Menu -->
+					</li>
+					<li><a href="#gallery" class="scroll">{{ galleryTitle }}</a></li>
+					<li><a href="#products" class="scroll">{{ productTitle }}</a></li>
+					<li><a href="#comments" class="scroll">{{ commentTitle }}</a></li>
+					<li><a href="#contact" class="scroll">{{ contactTitle }}</a></li>
+					<li>
+						<a id="cart" {# href="{{ path("cart", {cartId: cartId, locale: language.locale}) }}"#} onclick="gotoCart()" class="dropdown-toggle nav-toggle">
+							<i class="bi bi-cart-plus-fill"></i><b data-toggle="dropdown"></b>
+						</a>
+						<ul id="cart-popup" class="dropdown-menu text-lowercase gray-border clearfix cart-popup">
+							{% if cartItem != '' %}
+								<hr>
+								{% for item in cartItem %}
+									{% if item.main is not null %}
+										<li style="text-align: center">
+											<img src="{{ asset(item.main.photo) | imagine_filter('product') }}"/>
+											<span>x{{ item.quantity }}</span>
+											<span>{{ item.main.price }}euro</span>
+										</li>
+										<hr>
+									{% else %}
+										{% for photo in articlePhotos %}
+											{% if item.articleTrans.article.id == photo.article.id %}
+												<li style="text-align: center">
+													<img src="{{ (asset('uploads/article/') ~ photo.file) | imagine_filter('product') }}"/>
+													<span>x{{ item.quantity }}</span>
+													<span>{{ item.articleTrans.article.price }}euro</span>
+												</li>
+												<hr>
+											{% endif %}
+										{% endfor %}
+									{% endif %}
+								{% endfor %}
+							{% endif %}
+						</ul>
+					</li>
+					<li class="dropdown-toggle nav-toggle" ><a class="scroll">{{ languageTitle }}<b data-toggle="dropdown"></b></a>
+						<!-- DropDown Menu -->
+						{# show from database language #}
+						<ul class="dropdown-menu uppercase gray-border clearfix">
+							{% for language in languages %}
+								<li>
+									<a href="{{ path('home', {cartId: cartId,locale: language.locale}) }}" class="ex-link">
+										<img  src="{{ asset(language.photo)| imagine_filter('language') }}" alt=""/>
+										{{ language.language }}
+									</a>
+								</li>
+							{% endfor %}
+						</ul>
+						<!-- End DropDown Menu -->
+					</li>
+				</ul>
+			</div><!-- End Navigation Menu -->
+		</div><!-- End Navigation Inner -->
+	</nav><!-- End Navigation -->
+
+
+
+{% block body %}
+	<!-- Home -->
+	<section id="home" class="container relative" style="background-color: cornflowerblue">
+		<div id="full-slider-wrapper">
+			<div class="tp-banner-container">
+				<div class="tp-banner">
+					<ul>
+						{% for photo in homePhotos %}
+							<li  data-transition="random" data-slotamount="7" data-masterspeed="1000" >
+								<img class=""
+									 alt="slidebg1"
+									 data-bgfit="cover"
+									 data-bgposition="center "
+									 data-bgrepeat="no-repeat"
+									 src="{{ (asset('uploads/main_article/') ~ photo.file)| imagine_filter('home') }}"/>
+							</li>
+
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section><!-- End Home Section -->
+
+
+
+
+	<!-- About Section -->
+	<section id="design" class="container" style="background-color: deepskyblue">
+		<!-- About Inner -->
+		<div class="inner about">
+			<!-- Header -->
+			<h1 class="header uppercase white oswald animated" data-animation="fadeIn" data-animation-delay="100">
+				{{ design.smallTitle }}
+			</h1>
+			<h2 class="description white normal animated" data-animation="fadeIn" data-animation-delay="100">
+				{{ design.description }}
+{#				Magical design in your hand#}
+{#				Inspired by the beauty and shape of running water in nature, the quadruple-curved overflow display is an innovation that dissolves all aspects of the barriers to vision and imagination.1 With a refresh rate of 90 Hz, you can truly enjoy immersive views across the smooth overflow screen. The middle frame and the protective curved corners convey the harmonious look to the feeling in your hand.#}
+			</h2>
+			<!-- Header Strip(s) -->
+
+			<div class="member-image">
+				{% for photo in designPhotos %}
+					<img
+						 src="{{ (asset('uploads/main_article/') ~ photo.file) | imagine_filter('design') }}"
+						 alt="" class="responsive"/>
+				{% endfor %}
+			</div>
+		</div><!-- End About Inner -->
+	</section><!-- About Section -->
+
+
+
+
+
+
+	<!-- What We Do Section -->
+	<section id="photography" class="container " style="background-color: cornflowerblue">
+		<!-- What We Do Inner -->
+		<div class="inner what-we-do">
+			<!-- Header -->
+			<h1 class="header white uppercase oswald">
+				{{ photography.smallTitle }}
+			</h1>
+			<!-- Header Strip(s) -->
+			<div class="header-strips-one"></div>
+			<!-- Header Description -->
+			<h2 class="description white">
+
+				{{ photography.description }}
+
+			</h2>
+			<hr>
+			<div class="fullwidth relative t-center">
+				<h2 class="uppercase">{{ allCameras.smallTitle }}</h2>
+				<!-- Filters -->
+				{% autoescape 'html' %}
+					{{ allCameras.description|raw}}
+				{% endautoescape %}
+
+				<div class="w-second-area fullwidth clearfix">
+					<!-- Left -->
+					<div class="col-xs-6 w-left t-left no-padding animated" data-animation="fadeInLeft" data-animation-delay="0">
+						<!-- Mini Header -->
+						<h1 class="mini-header uppercase oswald white normal no-margin">
+							{{ photographyDescription.smallTitle }}
+						</h1>
+
+						<!-- Description -->
+						<p class="white normal" style="font-style: italic">
+							{{ photographyDescription.description }}
+{#							Introducing the main camera with Ultra Vision and the upgraded Artificial Intelligence algorithm - HUAWEI P40 Pro provides 45% 5 better analysis and segmentation of scenes and objects. With a pixel-level refinement, it restores the original look with great lighting, natural colors and clear details. Always be ready to take high quality portrait photos for everyone, anytime and in any setting.#}
+						</p>
+					</div>
+					<!-- End Left -->
+
+					<!-- Right -->
+					<div class="col-xs-6 w-right t-right no-padding animated" data-animation="fadeInRight" data-animation-delay="0">
+						<!-- Mac Image -->
+						{% for photo in photographyDescriptionPhotos %}
+							<img src="{{ (asset('uploads/main_article/') ~ photo.file) | imagine_filter('photography') }}" alt="North Preview"/>
+						{% endfor %}
+					</div>
+					<!-- End Right -->
+
+				</div><!-- End Second Area -->
+			</div><!-- End Boxes Area -->
+		</div><!-- End What We Do Inner -->
+	</section><!-- End What We Do Section -->
+
+
+
+
+
+	<section id="videography" class="container relative ">
+
+		<div class="fullscreen soft-bg-1 z-1 "></div>
+
+		<!-- Ful Screen Home -->
+		<div id="fullscreen">
+
+			<div id="P10" class="player video-container p-video-v" data-property="{videoURL:'{{ videography.description }}',containment:'#fullscreen',autoPlay:false, showControls:true, mute:false, startAt:0, opacity:1}"></div>
+			<!-- End Video -->
+
+			<!-- Home Elements v2 -->
+			<div class="home-elements">
+				<!-- Home Inner -->
+				<div class="home-inner v2 t-center">
+						<h1 class="uppercase" style="color: #0a0a0a">{{ videography.smallTitle }}</h1>
+				</div><!-- End Home Inner -->
+			</div><!-- End Home Elements -->
+		</div>
+		<!-- End Ful Screen Home -->
+	</section><!-- End Home Section -->
+
+
+	<section id="battery" class="container " style="background-color: deepskyblue">
+		<!-- What We Do Inner -->
+		<div class="inner what-we-do">
+			<h1 class="header white uppercase oswald">
+				{{ batteryTitle }}
+			</h1>
+			<div class="header-strips-one"></div>
+			<!-- Header Description -->
+			<div class="fullwidth relative t-center">
+						<div class="w-second-area fullwidth clearfix">
+							<!-- Left -->
+							<div class="col-xs-6 w-left t-left no-padding animated" data-animation="fadeInLeft" data-animation-delay="0">
+								<!-- Mini Header -->
+								{% for photo in batteryPhotos %}
+									<img class="responsive"  src="{{ (asset('uploads/main_article/') ~ photo.file) | imagine_filter('battery') }}" alt=""/>
+								{% endfor %}
+							</div>
+							<!-- End Left -->
+
+							<!-- Right -->
+							<div class="col-xs-6 w-right t-right no-padding animated" data-animation="fadeInRight" data-animation-delay="0">
+								<!-- Mac Image -->
+								<h1 class="mini-header uppercase oswald white normal no-margin">
+									{{ battery.smallTitle }}
+								</h1>
+
+								<!-- Description -->
+								<p class="white normal" style="font-style: italic">
+									{{ battery.description }}
+								</p>
+							</div>
+							<!-- End Right -->
+
+						</div><!-- End Second Area -->
+						<div class="w-second-area fullwidth clearfix">
+							<!-- Left -->
+							<div class="col-xs-6 w-left t-left no-padding animated" data-animation="fadeInLeft" data-animation-delay="0">
+								<!-- Mini Header -->
+								<h1 class="mini-header uppercase oswald white normal no-margin">
+									{{ charging.smallTitle }}
+								</h1>
+
+								<!-- Description -->
+								<p class="white normal" style="font-style: italic; color: white">
+									{{ charging.description }}
+								</p>
+							</div>
+							<!-- End Left -->
+
+							<!-- Right -->
+							<div class="col-xs-6 w-right t-right no-padding animated" data-animation="fadeInRight" data-animation-delay="0">
+								<!-- Mac Image -->
+								{% for photo in chargingPhotos %}
+									<img class="responsive" src="{{ (asset('uploads/main_article/') ~ photo.file) | imagine_filter('charging') }}" alt=""/>
+								{% endfor %}
+							</div>
+						<!-- End Right -->
+						</div><!-- End Second Area -->
+			</div>
+		</div>
+	</section>
+
+
+
+	<!-- Team Section -->
+	<section id="gallery" class="container" style="background-color: cornflowerblue">
+		<!-- Team Inner -->
+		<div class="inner team">
+			<!-- Header -->
+			<h1 class="header uppercase white oswald">
+				{{ galleryTitle }}
+			</h1>
+			<!-- Header Strip(s) -->
+			<div class="header-strips-one"></div>
+
+
+
+			<!-- Team Boxes -->
+			<div class="team-boxes t-center">
+
+				{% for photo in galleryPhotos %}
+				<!-- Team Box -->
+				<div class="item">
+					<!-- Box Inner -->
+					<div class="box-inner">
+						<!-- Team Member Image -->
+						<div class="member-image">
+							<!-- Image -->
+							<img src="{{ (asset('uploads/main_article/') ~ photo.file) | imagine_filter('gallery') }}" alt="Team Member" />
+						</div>
+					</div><!-- End Team Box Inner -->
+				</div><!-- End Team Box -->
+
+				{% endfor %}
+
+			</div><!-- End Team Boxes -->
+		</div><!-- End Team Inner -->
+	</section>
+
+
+	<!-- Accordion and Tabs -->
+	<section id="products" class="container" style="background-color: deepskyblue">
+
+		<!-- Inner -->
+		<div class="inner clearfix">
+			<!-- Header -->
+			<h1 class="header uppercase white oswald">
+				{{ productTitle }}
+			</h1>
+			<!-- Header Strip(s) -->
+			<div class="header-strips-one"></div>
+			<!-- Header Description -->
+
+			<!-- Items -->
+			<div class="items">
+
+				<!-- Nav Tabs -->
+				<div class="tabs left" >
+					<!-- Navıgation -->
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#{{ mainArticle.slug }}" data-toggle="tab" class="uppercase oswald"  style="background-color: #0f3e68">{{ mainArticle.name }}</a></li>
+						{% for article in articles %}
+							<li><a href="#{{ article.article.slug }}" data-toggle="tab" class="uppercase oswald"  style="background-color: #0f3e68">{{ article.name }}</a></li>
+						{% endfor %}
+					</ul>
+					<!-- Tab panes -->
+
+					<div class="tab-content"   style="text-align: center">
+						<div class="tab-pane fade in clearfix active" id="{{ mainArticle.slug }}">
+							<!-- Left Icon -->
+							<a class="tab-image">
+								<img src="{{ asset(mainArticle.photo) | imagine_filter('product') }}" alt="">
+							</a>
+							<div style="text-align: right; font-style: italic; color: black">
+								Price {{ mainArticle.price }} Euro
+							</div>
+							<hr>
+							<form method="post" id="{{ mainArticle.slug }}">
+								<div style="float: right">
+									<label>Insert quantity</label>
+									{% if mainArticle.quantity == 0 %}
+										<input type="number" min="1"  name="productCount" placeholder="Exhausted" class="form-control-static" disabled>
+										<input type="button" class="btn btn-primary" value="Add to cart" disabled>
+									{% else %}
+										<input type="number" min="1" id="productCount" name="productCount" class="form-control-static">
+{#										<input type="number" name="main" class="form-control-static" value="1" hidden>#}
+										<input type="submit" class="btn btn-primary" value="Add to cart">
+									{% endif %}
+								</div>
+							</form>
+						</div>
+						{% for article in articles %}
+							{% if article.article.id % 2 != 0 %}
+								<!-- Tab -->
+								<div class="tab-pane fade in clearfix" id="{{ article.article.slug }}">
+									<!-- Left Icon -->
+									<a class="tab-image">
+										{% for photo in articlePhotos %}
+											{% if photo.article.id == article.article.id %}
+												<img src="{{ (asset('uploads/article/') ~ photo.file) | imagine_filter('product') }}" alt="">
+											{% endif %}
+										{% endfor %}
+									</a>
+									<!-- Nav Text -->
+									<p class="tab-text" style="color: white">
+										{{article.smallDescription}}
+									</p>
+									<div class="header-strips-one"></div>
+									<p class="tab-text" style="color: white">
+										{{article.description}}
+									</p>
+									<div class="header-strips-one"></div>
+									<div style="text-align: right; font-style: italic; color: black">
+										Price {{ article.article.price }} Euro
+									</div>
+									<hr>
+									<form method="post" id="{{ article.article.slug }}" onsubmit="getForm(this)">
+										<div style="float: right">
+											<label>Insert quantity</label>
+											{% if article.article.quantity == 0 %}
+												<input type="number" min="1"  name="productCount" placeholder="Exhausted" class="form-control-static" disabled>
+												<input type="button" class="btn btn-primary" value="Add to cart" disabled>
+											{% else %}
+												<input type="number" min="1" id="{{ article.article.slug }}Count" name="productCount" class="form-control-static">
+												<input type="number" id="{{ article.article.slug }}Id" name="articleId" value="{{ article.article.id }}" class="form-control-static" hidden>
+												<input type="submit" class="btn btn-primary" value="Add to cart">
+											{% endif %}
+										</div>
+									</form>
+									<div class="header-strips-one"></div>
+									<h3 class="uppercase" style="text-align: center; color: white">{{ commentTitle }}</h3>
+									<div class="clients t-center animated" data-animation="fadeIn" data-animation-delay="400">
+										{% for comment in commentTrans %}
+											{% if comment.comment.main is null and comment.comment.article.id == article.article.id %}
+												<div class="item">
+													<h1 class="client-name uppercase oswald" style="color: white">
+														{{ comment.comment.name }}
+													</h1>
+													<!-- Client Position -->
+													<h3 class="client-position uppercase">
+														{% for i in range(comment.comment.rating, 1) %}
+															<i class="fa fa-star" style="color: gold"></i>
+														{% endfor %}
+													</h3>
+													<!-- Client Description -->
+													<p class="client-desc" style="color: white">
+														{{ comment.commentTrans }}
+													</p>
+												</div>
+											{% endif %}
+										{% endfor %}
+
+									</div><!-- End Client Slider -->
+								</div>
+								<!-- End Tab -->
+							{% else %}
+								<!-- Tab -->
+								<div class="tab-pane fade  clearfix" id="{{ article.article.slug }}">
+									<!-- Right Icon -->
+									<a class="tab-image right">
+										{% for photo in articlePhotos %}
+											{% if photo.article.id == article.article.id %}
+												<img src="{{ (asset('uploads/article/') ~ photo.file) | imagine_filter('product') }}" alt="">
+											{% endif %}
+										{% endfor %}
+									</a>
+									<p class="tab-text" style="color: white">
+										{{article.smallDescription}}
+									</p>
+									<div class="header-strips-one"></div>
+									<p class="tab-text" style="color: white">
+										{{article.description}}
+									</p>
+									<div class="header-strips-one"></div>
+									<div style="text-align: right; font-style: italic; color: black">
+										Price {{ article.article.price }} Euro
+									</div>
+									<hr>
+									<form method="post" id="{{ article.article.slug }}" onsubmit="getForm(this)">
+										<div style="float: right">
+											<label>Insert quantity</label>
+											{% if article.article.quantity == 0 %}
+												<input type="number" min="1" name="productCount" placeholder="Exhausted" class="form-control-static" disabled>
+												<input type="button" class="btn btn-primary" value="Add to cart" disabled>
+											{% else %}
+												<input type="number" min="1" id="{{ article.article.slug }}Count" name="productCount" class="form-control-static">
+												<input type="number" id="{{ article.article.slug }}Id" name="articleId" value="{{ article.article.id }}" class="form-control-static" hidden>
+												<input type="submit" class="btn btn-primary" value="Add to cart">
+											{% endif %}
+										</div>
+									</form>
+									<div class="header-strips-one"></div>
+									<h3 class="uppercase" style="text-align: center; color: white">{{ commentTitle }}</h3>
+									<div class="clients t-center animated" data-animation="fadeIn" data-animation-delay="400">
+										{% for comment in commentTrans %}
+											{% if comment.comment.main is null and comment.comment.article.id == article.article.id %}
+												<div class="item" style="color: white">
+													<h1 class="client-name uppercase oswald">
+														{{ comment.comment.name }}
+													</h1>
+													<!-- Client Position -->
+													<h3 class="client-position uppercase">
+														{% for i in range(comment.comment.rating, 1) %}
+															<i class="fa fa-star"></i>
+														{% endfor %}
+													</h3>
+													<!-- Client Description -->
+													<p class="client-desc" style="color: white">
+														{{ comment.commentTrans }}
+													</p>
+												</div>
+											{% endif %}
+										{% endfor %}
+
+									</div><!-- End Client Slider -->
+								</div>
+								<!-- End Tab -->
+							{% endif %}
+						{% endfor %}
+					</div><!-- End Tab panes -->
+				</div><!--End Tabs Left -->
+			</div><!-- End Items -->
+		</div><!-- End Inner -->
+	</section><!-- End Accordions and Tabs -->
+
+
+
+
+	<!-- Keep In Touch -->
+	<section id="comments" class="container" style="background-color: cornflowerblue">
+
+		<!-- Inner -->
+		<div class="inner">
+			<!-- Header -->
+			<h1 class="header uppercase white oswald">
+				{{ commentTitle }}
+			</h1>
+			<!-- Header Strip(s) -->
+			<div class="header-strips-one"></div>
+
+
+			<!-- Contact -->
+			<div class="comments animated" data-animation="fadeIn" data-animation-delay="200">
+				<!-- Contact Form -->
+				<form id="comment-form"
+					  name="cform"
+					  class="clearfix "
+					  method="post"
+					  action="{{ path('add_comment') }}">
+					<!-- Left Inputs -->
+					<div class="col-xs-6 left">
+
+						<!-- Name -->
+						<input type="text" name="name" id="name" class="form  oswald " placeholder="NAME"  required/>
+
+						<!-- Email -->
+						<select class="form oswald light" name="articleVote">
+							<option value="0">{{ mainArticle.Name }}</option>
+							{% for article in articles %}
+								<option value="{{ article.article.id }}">{{ article.name }}</option>
+							{% endfor %}
+						</select>
+
+						<select class="form oswald light" name="rating">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
+						<!-- Subject -->
+					</div>
+					<!-- End Left Inputs -->
+					<!-- Right Text Area -->
+					<div class="col-xs-6 right">
+
+						<textarea name="comment" id="message" class="form  textarea oswald light" placeholder="YOUR COMMENT" required></textarea>
+
+					</div>
+					<!-- End Right Text Area -->
+					<!-- Send Button -->
+					<div class="col-xs-12" style="text-align: center">
+						<!-- Button -->
+						<button type="submit" id="submit" name="submit" class="form contact-form-button oswald ligh">ADD COMMENT</button>
+					</div>
+					<!-- End Send Button -->
+				</form>
+				<!-- End Form -->
+
+				<!-- Your Mail Message -->
+				<div class="mail-message-area">
+					<!-- Message -->
+					<div class="alert dark-form mail-message not-visible-message">
+						<strong>Thank You !</strong> Your email has been delivered.
+					</div>
+				</div>
+				<!-- End Mail Message -->
+			</div><!-- End Contact Form -->
+
+			<!-- Header Strip(s) -->
+			<div class="header-strips-one"></div>
+			<!-- Header Description -->
+			<!-- Client Slider -->
+			<div class="clients t-center animated" data-animation="fadeIn" data-animation-delay="400">
+				{% for comment in commentTrans %}
+					{% if comment.comment.main is not null %}
+						<div class="item">
+							<h1 class="client-name uppercase oswald">
+								{{ comment.comment.name }}
+							</h1>
+							<!-- Client Position -->
+							<h3 class="client-position uppercase">
+								{% for i in range(comment.comment.rating, 1) %}
+									<i class="fa fa-star" style="color: gold"></i>
+								{% endfor %}
+							</h3>
+							<!-- Client Description -->
+							<p class="client-desc">
+								{{ comment.commentTrans }}
+							</p>
+						</div>
+					{% endif %}
+				{% endfor %}
+
+			</div><!-- End Client Slider -->
+		</div><!-- End Clients Inner -->
+	</section>
+
+
+
+	<!-- Address Section -->
+	<section id="contact" class="container" style="background-color: deepskyblue">
+		<!-- Inner -->
+		<div class="inner">
+			<!-- Address Soft Area -->
+			<div class="contact-soft t-center">
+				<h1 class="phone-text oswald white">
+					{{ contact.smallTitle }}
+				</h1>
+				<p class="phone-text oswald uppercase">
+					{{ contact.description }}
+				</p>
+			</div><!-- End Address Soft Area -->
+		</div><!-- End Inner -->
+	</section>
+
+	<section style="background-color: cornflowerblue">
+		<div class="inner">
+			{{ form_start(bulletinForm) }}
+				<h1 class="form-label uppercase" style="color: white; text-align: center">{{ subscribeTitle }}</h1>
+				{{ form_widget(bulletinForm.email) }}
+				{{ form_row(bulletinForm.submit) }}
+			{{ form_end(bulletinForm) }}
+		</div>
+	</section>
+
+
+	<!-- Footer -->
+	<footer class="footer t-center" style="background-color: #0d3349">
+		<!-- Logo -->
+		<img src="{{ asset('uploads/logo-footer.png') | imagine_filter('footer') }}" alt="North Logo"/>
+		<!-- Text -->
+		<p class="uppercase semibold">
+			©2014 all right reserved. designed by <a href="http://themeforest.net/user/GoldEyes" target="_blank">goldeyes theme</a> 
+		</p>
+	</footer>
+	<!-- End Footer -->
+
+
+
+
+	<!-- Back To Top Button -->
+	<section id="back-top">
+		<a href="#home" class="scroll t-center white">
+			<i class="fa fa-angle-double-up"></i>
+		</a>
+	</section>
+	<!-- End Back To Top Button -->
+
+	<div id="shopping-modal" class="modal-style">
+		<div id="shopping-content" class="modal-content">
+
+		</div>
+	</div>
+
+{% endblock %}
+	<!-- JS Files -->
+	<script>
+		var cartPopup = document.getElementById('cart-popup');
+		var shoppingModal = document.getElementById('shopping-modal');
+		var shoppingContent = document.getElementById('shopping-content');
+		var mainId = 0;
+		var articleId = 0;
+		var e = document.getElementById('cart');
+		e.onmouseover = function (){
+			cartPopup.style.display = 'block';
+
+		}
+		e.onmouseout = function () {
+			cartPopup.style.display = 'none';
+		}
+		cartPopup.onmousemove = function () {
+			cartPopup.style.display = 'block';
+		}
+		cartPopup.onmouseleave = function () {
+			cartPopup.style.display = 'none';
+		}
+
+		$("#huawei_p40").submit(function (event) {
+			event.preventDefault();
+			var queryString = window.location.search;
+			var urlParam = new URLSearchParams(queryString);
+			var cartId = urlParam.get('cartId');
+			var locale = urlParam.get('locale');
+			var quantity = jQuery('#productCount').val();
+			mainId = {{ mainArticle.id }};
+			$.ajax({
+				url: '{{ path('add_cart', {locale: language.locale}) }}',
+				data: {
+					mainId: mainId,
+					quantity: quantity,
+					cartId: cartId
+				},
+				type: 'POST'
+			})
+			.done(function (data) {
+				window.history.replaceState(null, null, "?cartId="+ data.cartId + "&locale=" + data.locale);
+				getCartItem(data.cartId);
+			})
+			.error(function (){
+				alert("Sorry, but you can't add this product to cart!");
+			})
+		})
+
+		function getForm(form) {
+			$("#"+form.id).submit(function (event){
+				event.preventDefault();
+				var queryString = window.location.search;
+				var urlParam = new URLSearchParams(queryString);
+				var cartId = urlParam.get('cartId');
+				var locale = urlParam.get('locale');
+
+				articleId = $("#"+form.id+"Id").val();
+				var quantity = $("#"+form.id+"Count").val();
+
+				$.ajax({
+					url: '{{ path('add_cart', {locale: language.locale}) }}',
+					data: {
+						articleId: articleId,
+						quantity: quantity,
+						cartId: cartId
+					},
+					type: 'POST'
+				})
+				.done(function (data) {
+					window.history.replaceState(null, null, "?cartId="+ data.cartId + "&locale=" + data.locale);
+					getCartItem(data.cartId);
+				})
+				.error(function (){
+					alert("Sorry, but you can't add this product to cart!");
+				})
+			})
+		}
+
+		function continueWithShopping() {
+			shoppingModal.style.display = 'none';
+		}
+
+		function gotoCart(){
+			var queryString = window.location.search;
+			var urlParam = new URLSearchParams(queryString);
+			var cartId = urlParam.get('cartId');
+			var locale = urlParam.get('locale');
+			if(cartId != null){
+				window.location = "{{ path('cart') }}" + "/?cartId=" + cartId + "&locale=" + locale;
+			}
+			else {
+				window.location = "{{ path('home') }}";
+			}
+		}
+
+		function getCartItem(cartId) {
+			console.log(cartId);
+			$.ajax({
+				url: '{{ path('getCartItem') }}',
+				data: {
+					cartId: cartId,
+					mainId: mainId,
+					articleId: articleId
+				},
+				type: 'POST'
+			})
+			.done(function (data){
+				var product_photo =  data.image;
+				var product_quantity = data.quantity;
+				var product_price = data.price;
+				// console.log(product_photo);
+				// console.log(product_quantity);
+				// console.log(product_price);
+				showCurrentProduct(product_photo, product_quantity, product_price);
+			})
+			.error(function () {
+				alert("ERRROORR");
+			})
+		}
+
+		function showCurrentProduct(product_photo, product_quantity, product_price) {
+			var shoppingContentText = "";
+			var cartPopupText = "";
+			if(mainId !== 0) {
+				cartPopupText = "<li style=\"text-align: center\">" +
+						"<img src=\""+ product_photo +"\"/>" +
+						"<span style=\"padding: 5px\">x" + product_quantity + "</span>" +
+						"<span>" + product_price + "euro</span>" +
+						"</li> <hr>"
+				;
+				shoppingContentText = "<label>" +
+						"<img src=\""+ product_photo +"\"/> add successfully!" +
+						"</label>" +
+						"<input type=\"submit\" class=\"btn btn-primary\"  id=\"shoppingButton\" value=\"Continue with Shopping\" onclick=\"continueWithShopping()\"/>\n" +
+						"\t\t\t<input type=\"submit\" class=\"btn btn-primary\" id=\"gotoCart\" value=\"Go to the Cart\" style=\"float: right\" onclick=\"gotoCart()\"/>"
+						;
+
+				mainId = 0;
+			}
+			else {
+				cartPopupText = "<li style=\"text-align: center\">" +
+						"<img src=\"uploads/article/"+ product_photo +"\"/>" +
+						"<span style=\"padding: 5px\">x" + product_quantity + "</span>" +
+						"<span>" + product_price + "euro</span>" +
+						"</li> <hr>"
+				;
+				shoppingContentText = "<label style='text-align: center'>" +
+						"<img src=\"uploads/article/"+ product_photo +"\"/> add successfully!" +
+						"</label>" +
+						"<input type=\"submit\" class=\"btn btn-primary\"  id=\"shoppingButton\" value=\"Continue with Shopping\" onclick=\"continueWithShopping()\"/>\n" +
+						"\t\t\t<input type=\"submit\" class=\"btn btn-primary\" id=\"gotoCart\" value=\"Go to the Cart\" style=\"float: right\" onclick=\"gotoCart()\"/>"
+				;
+			}
+			cartPopup.innerHTML += cartPopupText;
+			shoppingContent.innerHTML = shoppingContentText;
+			shoppingModal.style.display = 'block';
+		}
+
+		$(document).ready(function(){
+			$(".nav-tabs a").click(function(){
+				$(this).tab('show');
+			});
+		});
+	</script>
+	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/jquery.appear.js"></script>
+	<script type="text/javascript" src="js/waypoints.min.js"></script>
+	<script type="text/javascript" src="js/modernizr-latest.js"></script>
+	<script type="text/javascript" src="js/SmoothScroll.js"></script>
+	<script type="text/javascript" src="js/jquery.superslides.js"></script>
+	<script type="text/javascript" src="js/jquery.isotope.js"></script>
+	<script type="text/javascript" src="js/jquery.parallax-1.1.3.js"></script>
+	<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+	<script type="text/javascript" src="js/jquery.fitvids.js"></script>
+	<script type="text/javascript" src="js/jquery.flexslider.js"></script>
+	<script type="text/javascript" src="js/owl.carousel.js"></script>
+	<script type="text/javascript" src="js/jquery.mb.YTPlayer.js"></script>
+	<script type="text/javascript" src="js/jquery.magnific-popup.min.js"></script>
+	<script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
+	<script type="text/javascript" src="js/plugins.js"></script>
+	<script type="text/javascript" src="js/google-map.js"></script>
+	<script type="text/javascript" src="js/jquery.sticky.js"></script>
+	<!-- Theme Panel -->
+	<script type="text/javascript" src="theme_panel/theme_panel.js"></script>
+	<!-- End JS Files -->
+	<!-- Layer Slider -->
+	<script type="text/javascript" src="js/revslider/jquery.themepunch.revolution.min.js"></script>
+	<script type="text/javascript" src="js/revslider/jquery.themepunch.tools.min.js"></script>
+	<script type="text/javascript" src="js/revslider/revslider.js"></script>
+	<!-- End Layer Slider -->
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+
+</body>
+
+</html>

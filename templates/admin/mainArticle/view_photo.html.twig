@@ -1,0 +1,42 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        .responsive {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container jumbotron">
+        <div class="row" style="text-align: center">
+            <h2 style="text-align: center">"{{ pageList.subpage }}" photos:</h2>
+        </div>
+        <hr>
+
+        <div class="row">
+            {% for photo in photos %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body card-background">
+                            <a href="{{ path('main_subpage_photo_delete', {pageListId: photo.pageList.id ,id: photo.id}) }}"
+                               class="btn btn-danger"
+                               onclick="return confirm('Are you sure?')">
+                                <i class="bi bi-trash-fill"></i>
+                            </a>
+                            <img src="{{ asset('uploads/main_article/') ~ photo.file }}" class="responsive">
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <hr>
+        <input type="hidden" class="form-control" name="id" value="{{ pageList.Id }}">
+        {{form_start(form)}}
+            {{ form_row(form.file) }}
+            {{ form_row(form.submit) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

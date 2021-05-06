@@ -1,0 +1,58 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+    {{ form_start(form) }}
+    <div class="container jumbotron">
+        <div class="row">
+            <div class="card-body">
+                <div class="row" style="text-align: center">
+                    <div class="form-group col">
+                        <h2 class="text-italic">{{ name }}</h2>
+                    </div>
+                </div>
+                <div style="padding-bottom: 5px">
+                    {{ form_row(form.language) }}
+                </div>
+                <div class="row" >
+                    <div class="form-group col-6">
+                        <label for="exampleInputEmail1">Slug</label>
+                        <input type="text" class="form-control" name="slug" placeholder="Enter Slug" value="{{ slug }}">
+                    </div>
+                    <div class="form-group col-6">
+                        {{ form_row(form.name, {'attr': {'class': 'form-control',
+                            'placeholder': 'Insert name ...' }}) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col">
+                        {{ form_row(form.small_description, {'attr': {'class': 'form-control',
+                            'placeholder': 'Insert small_description ...'}}) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col">
+                        {{ form_row(form.description, {'attr': {'class': 'form-control',
+                            'placeholder': 'Insert description ...'}}) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="exampleInputEmail1">Quantity</label>
+                        <input type="number" class="form-control" name="quantity" placeholder="Enter Quantity" value="{{ quantity }}">
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="exampleInputEmail1">Price</label>
+                        <input type="number" class="form-control" name="price" placeholder="Enter Price" value="{{ price }}">
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="card-footer" style="text-align: center">
+            {{ form_row(form.submit) }}
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}

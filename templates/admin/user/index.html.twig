@@ -1,0 +1,112 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        /*.container {*/
+        /*    text-align: center;*/
+        /*}*/
+        .text-italic{
+            font-family: "Engravers MT";
+            font-style: italic;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="row jumbotron">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title text-italic">Users</h3>
+
+{#                <div class="card-tools">#}
+{#                    <div class="input-group input-group-sm" style="width: 150px;">#}
+{#                        <div class="input-group-append">#}
+{#                            <a class="btn btn-info" style="width: 50px;font-size: 1em" href="{{ path('admin_user_edit_form', {id: 0}) }}"><b style=";font-weight: bold; color:white">+</b></a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+            </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover text-nowrap">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Name</th>
+                            <th>Surname</th>
+{#                            <th>Change password</th>#}
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.name }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.firstName }}</td>
+                                <td>{{ user.lastName }}</td>
+{#                                <td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default"#}
+
+{#                                            onclick="changePassword({{ user.id }});">#}
+{#                                        Смени парола#}
+{#                                    </button>#}
+{#                                </td>#}
+                                <td><a class="btn btn-info" href="{{ path('user_edit_form', {id: user.id}) }}">Edit</a></td>
+                                <td>
+                                    <a class="btn btn-danger" href="{{ path('user_delete', {id: user.id}) }}"
+                                       onclick="return confirm('Are you sure?')">Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+
+    {#    <div class="modal fade" id="modal-default">#}
+    {#        <div class="modal-dialog">#}
+    {#            <form action="{{ path('admin_user_change_password')}}" method="post">#}
+
+    {#                <div class="modal-content">#}
+    {#                    <div class="modal-header">#}
+    {#                        <h4 class="modal-title">Смяна на парола</h4>#}
+    {#                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+    {#                            <span aria-hidden="true">&times;</span>#}
+    {#                        </button>#}
+    {#                    </div>#}
+    {#                    <div class="modal-body">#}
+    {#                        <div class="row">#}
+    {#                            <div class="form-group col-12">#}
+    {#                                <label for="exampleInputPassword1">Password</label>#}
+    {#                                <input type="password" class="form-control" name="password" placeholder="Password" >#}
+    {#                            </div>#}
+    {#                            <div class="form-group col-12">#}
+    {#                                <label for="exampleInputPassword1">Password</label>#}
+    {#                                <input type="password" class="form-control" name="repeatPassword" placeholder="Repeat Password" >#}
+    {#                            </div>#}
+    {#                        </div>#}
+    {#                        <input type="hidden" name="id" id="user_id">#}
+    {#                    </div>#}
+    {#                    <div class="modal-footer justify-content-between">#}
+    {#                        <button type="button" class="btn btn-default" data-dismiss="modal">Откажи</button>#}
+    {#                        <input type="submit" class="btn btn-primary" value="Запиши">#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            </form>#}
+
+    {#            <!-- /.modal-content -->#}
+    {#        </div>#}
+    {#        <!-- /.modal-dialog -->#}
+    {#    </div>#}
+
+{% endblock %}

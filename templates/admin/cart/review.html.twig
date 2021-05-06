@@ -1,0 +1,72 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        .text-italic{
+            font-family: "Engravers MT";
+            font-style: italic;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block body %}
+    <div class="container jumbotron">
+        <div class="row" style="text-align: center">
+            <div class="form-group col">
+                <h2 class="text-italic">Cart Items</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+{#                        <th>Change quantity</th>#}
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for cartItem in cartItems %}
+                        {% if cartItem.main is not null %}
+                            <tr>
+                                <td>{{ cartItem.main.name }}</td>
+                                <td>{{ cartItem.quantity}}</td>
+                                <td>{{ cartItem.main.price }}</td>
+{#                                <td>#}
+
+{#                                </td>#}
+                                <td><a class="btn btn-danger" href="{{ path('order_main_delete', {cartId: cartItem.cart.id,id: cart.id }) }}">Delete</a></td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td>{{ cartItem.articleTrans.name }}</td>
+                                <td>{{ cartItem.quantity }}</td>
+                                <td>{{ cartItem.articleTrans.article.price }}</td>
+{#                                <td>#}
+{#                                    <a class="btn btn-info" href="{{ path('order_delete', {id: cart.id }) }}">Edit</a>#}
+{#                                </td>#}
+                                <td><a class="btn btn-danger" href="{{ path('order_article_delete', {cartId: cartItem.cart.id,id: cart.id }) }}">Delete</a></td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <hr>
+        <div class="row" style="text-align: center">
+            <div class="form-group col" >
+                <h5>All Price: {{ allPrice }}</h5>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+

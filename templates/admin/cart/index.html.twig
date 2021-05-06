@@ -1,0 +1,67 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        .text-italic{
+            font-family: "Engravers MT";
+            font-style: italic;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+
+    <div class="row jumbotron">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title text-italic">Orders</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover text-nowrap">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Date of Created</th>
+                            <th>Checked out</th>
+                            <th>Review</th>
+                            <th>Confirm</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for cart in carts %}
+                            <tr>
+                                <td>{{ cart.name }}</td>
+                                <td>{{ cart.address }}</td>
+                                <td>{{ cart.dateCreated | date('Y-m-d') }}</td>
+                                <td>
+                                    {% if cart.checkedOut == false %}
+                                        Not approved
+                                    {% else %}
+                                        Approved
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a class="btn btn-info" href="{{ path('order_review', {id: cart.id }) }}">Review</a>
+                                </td>
+                                <td>
+                                    {% if cart.checkedOut == false %}
+                                        <a class="btn btn-success" href="{{ path('order_confirm', {id: cart.id }) }}">Confirm</a>
+                                    {% else %}
+                                        <a class="btn btn-danger" href="{{ path('order_confirm', {id: cart.id }) }}">Refuse</a>
+                                    {% endif %}
+                                </td>
+                                <td><a class="btn btn-danger" href="{{ path('order_delete', {id: cart.id }) }}" onclick="return confirm('Are you sure?')">Delete</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

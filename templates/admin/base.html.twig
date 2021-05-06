@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}Welcome!{% endblock %}</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link href="bundles/kmsfroalaeditor/froala_editor/css/froala_style.min.css" rel="stylesheet" type="text/css" />
+{#    <link href="bundles/kmsfroalaeditor/froala_editor/css/plugins.pkgd.css" rel="stylesheet" type="text/css" />#}
+{#    <link href="bundles/kmsfroalaeditor/froala_editor/css/froala_editor.pkgd.css" rel="stylesheet" type="text/css" />#}
+{#    <link href="bundles/kmsfroalaeditor/froala_editor/css/froala_editor.css" rel="stylesheet" type="text/css" />#}
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    {% block stylesheets %}{% endblock %}
+    <style>
+
+        @media (max-width: 990px) {
+            .navbar-nav{
+                text-align: center;
+
+            }
+            .form-inline{
+                float: right;
+            }
+
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="bs-example">
+    <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+        <a href="{{ path('user_edit_form', {id: app.user.id}) }}" class="navbar-brand" >{{ app.user.name }}</a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse1">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse1">
+            <div id="MyNav" class="navbar-nav">
+                <a
+                    href="{{ path("redirect") }}"
+                    class="nav-item nav-link"
+                    style="font-style: italic;" target="_blank">Home
+                </a>
+                <a
+                    href="{{ path("user_list") }}"
+                    class="nav-item nav-link
+                    {% if app.request.attributes.get( '_route' ) starts with 'user' %}active{% endif %}"
+                    style="font-style: italic;">Users
+                </a>
+                <a
+                    href="{{ path('order_list') }}"
+                    class="nav-item nav-link
+                    {% if app.request.attributes.get( '_route' ) starts with 'order' %}active{% endif %}"
+                    style="font-style: italic;">Orders
+                </a>
+                <a
+                    href="{{ path("main_list") }}"
+                    class="nav-item nav-link
+                    {% if app.request.attributes.get( '_route' ) starts with 'main' %}active{% endif %}"
+                    style="font-style: italic;">Main_Article
+                </a>
+                <a
+                    href="{{ path("article_list") }}"
+                    class="nav-item nav-link
+                    {% if app.request.attributes.get( '_route' ) starts with 'article' %}active{% endif %}"
+                    style="font-style: italic;">Articles
+                </a>
+{#                <a href="#" class="nav-item nav-link" style="font-style: italic;">Footer pages</a>#}
+            </div>
+            <form class="form-inline ml-auto" >
+                <a href="{{ path("app_logout") }}"
+                   class="nav-item nav-link"
+                   style="color: rgba(255,255,255,.75)">
+                    Logout
+                </a>
+            </form>
+        </div>
+    </nav>
+</div>
+
+
+
+{% block body %}{% endblock %}
+{% block javascripts %}
+{% endblock %}
+{#<footer class="container mt-4">#}
+{#    <strong>Created by Nikolay Nedyalkov.</strong>#}
+{#    All rights reserved.#}
+{#</footer>#}
+</body>
+</html>

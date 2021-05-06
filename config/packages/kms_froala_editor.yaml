@@ -1,0 +1,11 @@
+kms_froala_editor:
+  language: 'en'
+  toolbarSticky: true
+  toolbarInline: false
+  tableColors: [ "#FFFFFF", "#FF00000" ]
+  saveParams: {"id": "myEditorField"}
+  serialNumber: "XXXX-XXXX-XXXX"
+  includeCodeMirror: true
+  includeFontAwesome: true
+  includeJS: true
+  includeCSS: true

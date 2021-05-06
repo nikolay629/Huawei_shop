@@ -1,0 +1,89 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %} Main Pages {% endblock %}
+
+
+{% block stylesheets %}
+    <style>
+        .text-italic{
+            font-family: "Engravers MT";
+            font-style: italic;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+
+    <div class="row jumbotron">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+{#                    <h3 class="card-title text-italic">{{ mainArticle.name }}</h3>#}
+                    <h3 class="card-title text-italic">Main Article</h3>
+                    <a href="{{ path('main_comment_list', {mainId: 1}) }}"
+                       class="btn btn-success"
+                       style="float: left; color: white">
+                        <i class="fa fa-comment"></i> Comments
+                    </a>
+                    <a href="{{ path('main_create_edit', {pageId: pageId}) }}"
+                       class="btn btn-primary"
+                       style="float: right; color: white">
+                        <i class="fa fa-plus"></i> Create
+                    </a>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+
+                        <form method="post" action="{{ path('main_list') }}">
+                            <select class="js-example-basic-single form-control " name="page" style="background-color: lightblue">
+                                {% for page in pages %}
+                                    {% if page.title == "Comments"
+                                        or page.title == "Subscribe to news"
+                                        or page.title == "Review"
+                                        or page.title == "Languages"
+                                        or page.title == "Cart"
+                                        or page.title == "Products" %}
+                                    {% elseif page.id == pageId %}
+                                        <option value="{{ page.id }}" selected>{{ page.title }}</option>
+                                    {% else %}
+                                        <option value="{{ page.id }}">{{ page.title }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            <input type="submit" value="Филтрирай" class="btn btn-primary">
+
+                        </form>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover text-nowrap">
+                        <thead>
+                        <tr>
+                            <th>Subpage</th>
+                            <th>Translation</th>
+                            <th>Photos</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for page in pageList %}
+                            <tr>
+                                <td>{{ page.subpage }}</td>
+                                <td ><a class="btn btn-info" href="{{ path('main_translation_list', {pageListId: page.id}) }}">Translation</a></td>
+                                <td >
+                                    <a class="btn btn-info" href="{{ path('main_subpage_photo', {id: page.id}) }}">Photo</a>
+                                </td>
+                                <td ><a class="btn btn-info" href="{{ path('main_create_edit', {pageId: page.page.id, pageListId: page.id}) }}">Edit</a></td>
+                                <td ><a class="btn btn-danger" href="{{ path('main_subpage_delete', {id: page.id}) }}" onclick="return confirm('Are you sure?')">Delete</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

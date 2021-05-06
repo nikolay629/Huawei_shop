@@ -1,0 +1,65 @@
+{% extends "admin/base.html.twig" %}
+
+{% block stylesheets %}
+    <style>
+        /*.container {*/
+        /*    text-align: center;*/
+        /*}*/
+        .text-italic{
+            font-family: "Engravers MT";
+            font-style: italic;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="row jumbotron">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title text-italic">Articles</h3>
+                    <a href="{{ path("article_create") }}"
+                       class="btn btn-primary"
+                       style="float: right; color: white">
+                        <i class="fa fa-plus"></i> Create
+                    </a>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover text-nowrap">
+                        <thead>
+                        <tr>
+                            <th>Slug</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Translates</th>
+                            <th>Photos</th>
+                            <th>Comments</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for article in articles %}
+                            <tr>
+                                <td>{{ article.slug }}</td>
+                                <td>{{ article.quantity }}</td>
+                                <td>{{ article.price }}</td>
+                                <td><a class="btn btn-info" href="{{ path('article_translation', {id: article.id}) }}">Translates</a></td>
+                                <td>
+                                    <a class="btn btn-info" href="{{ path('article_photo', {id: article.id}) }}">Photos</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-info" href="{{ path('article_comment_list', {id: article.id}) }}">Comments</a>
+                                </td>
+                                <td><a class="btn btn-info" href="{{ path('article_edit', {id: article.id}) }}">Edit</a></td>
+                                <td><a class="btn btn-danger" href="{{ path('article_delete', {id: article.id}) }}" onclick="return confirm('Are you sure?')">Delete</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
